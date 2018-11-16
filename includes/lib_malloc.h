@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/16 18:29:18 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:57:08 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 # define DECAL(p, step) (void*)(p) + (step)
 # define GET_BLOCK(p, step) (t_mblock*)(DECAL((p), (step)))
 # define GET_FREE(p, step) (t_mfree*)(DECAL((p), (step)))
-# define GET_BLOCK(p, step) (t_mblock*)(DECAL((p), (step)))
 
 # define BLKSZ sizeof(t_mblock)
 # define ZONESZ sizeof(t_mzone)
