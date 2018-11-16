@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:42:41 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/16 18:47:31 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/16 19:03:49 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,8 @@ void	*alloc_space(t_mzone **zonelst, size_t stp, size_t p_nb, size_t size)
 		zone = zone->next;
 	if(free_space == NULL)
 	{
-		zone = init_zone(zonelst, p_nb);
+		if ((zone = init_zone(zonelst, p_nb)) == NULL)
+			return (NULL);
 		free_space = zone->free;
 	}
 	regi_space(zone, free_space, size, stp);
