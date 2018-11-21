@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   lst_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/18 17:34:26 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 15:55:51 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/11/21 10:05:56 by gmichaud          #+#    #+#             */
+/*   Updated: 2018/11/21 10:43:59 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib_malloc.h"
 
-void	ft_putstr_fd(char const *s, int fd)
+short	zonelist_append(t_mzone **alst, t_mzone *new)
 {
-	size_t len;
+	t_mzone	*tmp;
 
-	len = 0;
-	while (s[len])
-		++len;
-	write(fd, s, len);
+	if (!alst)
+		return (ERROR);
+	tmp = *alst;
+	if (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+		*alst = new;
+	return (SUCCESS);
 }

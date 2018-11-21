@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/02 13:58:43 by gmichaud          #+#    #+#             */
-/*   Updated: 2017/11/21 09:36:54 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/21 17:06:17 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(int n);
+void				ft_putnbrl(long n);
+void				ft_putnbrll(long long n);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_atoi(char const *s);
 void				*ft_memalloc(size_t size);

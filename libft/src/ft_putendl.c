@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/02 18:22:08 by gmichaud          #+#    #+#             */
-/*   Updated: 2016/11/15 16:45:17 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:55:43 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 void	ft_putendl(char const *s)
 {
-	int i;
+	size_t len;
 
-	i = 0;
-	if (s)
-	{
-		while (s[i])
-		{
-			ft_putchar(s[i]);
-			i++;
-		}
-		ft_putchar('\n');
-	}
+	len = 0;
+	while (s[len])
+		++len;
+	write(1, s, len);
+	write(1, "\n", 1);
 }
