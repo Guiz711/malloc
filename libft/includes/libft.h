@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/02 13:58:43 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 17:06:17 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/23 17:32:43 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 # define BUFF_SIZE 4096
 
@@ -36,12 +37,19 @@ void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);
+void				ft_putstr_aligned(char const *s, size_t columns);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
+size_t				ft_nbrlen(int n);
 void				ft_putnbr(int n);
 void				ft_putnbrl(long n);
+void				ft_putnbrlu(size_t n);
+void				ft_putnbrlu_aligned(unsigned long n, size_t columns);
 void				ft_putnbrll(long long n);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_puthexa(unsigned long n);
+void 				ft_puthexa_formated(unsigned long n,
+	size_t size, bool prefix);
 int					ft_atoi(char const *s);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);

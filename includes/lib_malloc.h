@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 16:59:27 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/23 16:27:25 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include "libft.h"
 # include <limits.h>
+# include <stdbool.h>
 
 /*
 ** TINY_STEP and SALL_STEP should be a multiple of getpagesize()
@@ -44,6 +45,22 @@
 
 # define BLKSZ sizeof(t_mblock)
 # define ZONESZ sizeof(t_mzone)
+
+typedef enum	e_mode_mask
+{
+	FREE = 1 << 0,
+	ALLOCS = 1 << 1,
+	DUMP = 1 << 2,
+	MODE_ALL = FREE | ALLOCS | DUMP
+}				t_mode_mask;
+
+typedef enum	e_zone_mask
+{
+	TINY = 1 << 0,
+	SMALL = 1 << 1,
+	BIG = 1 << 2,
+	ZONE_ALL = TINY | SMALL | BIG
+}				t_zone_mask;
 
 typedef struct		s_mblock
 {
@@ -73,6 +90,7 @@ typedef struct		s_mctrl
 t_mctrl g_mctrl;
 
 void	*ft_malloc(size_t size);
+void	ft_free(void *ptr);
 
 t_mfree	*find_free_space(t_mfree *freelist, size_t alloc_size);
 t_mfree	*freelist_init(t_mzone *zone, size_t zone_size);
@@ -90,8 +108,10 @@ short	zonelist_append(t_mzone **alst, t_mzone *new);
 
 void	print_free_list(t_mfree *list);
 
-void	ft_puthexa(long n);
-void	ft_puthexa_formated(long n, int size);
 void	show_alloc_mem();
+void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show);
+void	dump_hexa(void *begin, void *end);
+void	print_alloc(void *begin, void *end, size_t size);
+void	print_zone(char *type, size_t i, void *ptr);
 
 #endif

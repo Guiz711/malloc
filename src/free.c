@@ -6,11 +6,30 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 11:28:37 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 17:01:31 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/23 18:31:58 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_malloc.h"
+
+bool	is_empty_zone(t_mzone *zone)
+{
+	t_mblock	*block;
+	t_mfree		*tmp_free;
+
+	block = GET_BLOCK(zone, ZONESZ);
+	tmp_free = zone->free;
+	while(tmp_free->next)
+		tmp_free = tmp_free->next;		
+	if(block == GET_BLOCK(tmp_free, -BLKSZ))
+		return true;
+	return false;
+}
+
+void	delete_if_needed(size_t zone_size)
+{
+	t_mzone	*tmp;
+}
 
 t_mzone	*zone_search(t_mzone *zone, size_t zone_size, void *ptr)
 {
@@ -25,7 +44,7 @@ t_mzone	*zone_search(t_mzone *zone, size_t zone_size, void *ptr)
 	return NULL;
 }
 
-void	free(void *ptr)
+void	ft_free(void *ptr)
 {
 	t_mblock	*block;
 	t_mzone		*zone;
@@ -44,5 +63,6 @@ void	free(void *ptr)
 	{
 		freelist_insert(zone, ptr);
 		freelist_defrag((t_mfree*)ptr);
+		delete_if_needed(zone);
 	}
 }

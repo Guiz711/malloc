@@ -6,7 +6,7 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2018/11/21 15:10:05 by gmichaud         ###   ########.fr        #
+#    Updated: 2018/11/23 16:26:03 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CC = clang
 CFLAGS = #-Wall -Wextra -Werror
 SRC_PATH = src
 
-SRC_NAME = main.c malloc.c zone.c lst_handling.c free_list.c debug.c free.c
+SRC_NAME = main.c malloc.c free.c zone.c lst_handling.c free_list.c debug1.c \
+			debug2.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

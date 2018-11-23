@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:42:41 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 17:23:20 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/23 11:16:44 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*alloc_space(t_mzone **zonelst, size_t stp, size_t p_nb, size_t size)
 	t_mfree	*free_space;
 
 	if (size % stp != 0)
-		size += stp - size % stp;	
+		size += stp - size % stp;
 	zone = *zonelst;
 	free_space = NULL;
 	while (zone && !(free_space = find_free_space(zone->free, size)))
