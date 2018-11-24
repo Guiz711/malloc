@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 16:27:25 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/24 14:14:02 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ typedef struct		s_mfree
 typedef struct		s_mzone
 {
 	t_mfree			*free;
+	struct s_mzone	*prev;
 	struct s_mzone	*next;
+	char			is_empty;
 }					t_mzone;
 
 typedef struct		s_mctrl
@@ -85,6 +87,8 @@ typedef struct		s_mctrl
 	t_mzone			*tiny;
 	t_mzone			*small;
 	t_mzone			*big;
+	char			empty_tiny;
+	char			empty_small;
 }					t_mctrl;
 
 t_mctrl g_mctrl;

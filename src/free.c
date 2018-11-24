@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 11:28:37 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 18:31:58 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:14:53 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,29 @@ bool	is_empty_zone(t_mzone *zone)
 	block = GET_BLOCK(zone, ZONESZ);
 	tmp_free = zone->free;
 	while(tmp_free->next)
-		tmp_free = tmp_free->next;		
+		tmp_free = tmp_free->next;
 	if(block == GET_BLOCK(tmp_free, -BLKSZ))
 		return true;
 	return false;
 }
 
-void	delete_if_needed(size_t zone_size)
+void	delete_zone(t_mzone *zone, t_zone_mask type)
 {
-	t_mzone	*tmp;
+
+}
+
+void	delete_if_needed(t_mzone *zone, t_zone_mask type)
+{
+	// char	empty_nb;
+
+	// empty_nb = type & TINY ? g_mctrl.tiny : g_mctrl.small;
+	// if (type & BIG)
+	// 	munmap(zone, get_big_zone_size(zone));
+	// else if (is_empty_zone(zone))
+	// {
+	// 	if (empty_nb > 1)
+	// 		delete_zone()
+	// }
 }
 
 t_mzone	*zone_search(t_mzone *zone, size_t zone_size, void *ptr)
@@ -63,6 +77,6 @@ void	ft_free(void *ptr)
 	{
 		freelist_insert(zone, ptr);
 		freelist_defrag((t_mfree*)ptr);
-		delete_if_needed(zone);
+		// delete_if_needed(zone);
 	}
 }

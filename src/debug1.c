@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:10:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 16:25:06 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:05:44 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_allocs(t_mzone *zone, size_t zone_size, t_mode_mask mode)
 	void		*zone_end;
 	void		*alloc;
 
-	block = GET_BLOCK(zone, BLKSZ);
+	block = GET_BLOCK(zone, ZONESZ);
 	zone_end = (void*)zone + zone_size;
 	alloc = NULL;
 	while ((void*)block < zone_end)

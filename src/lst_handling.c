@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:05:56 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 10:43:59 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:06:53 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ short	zonelist_append(t_mzone **alst, t_mzone *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+		new->prev = tmp;
 	}
 	else
 		*alst = new;

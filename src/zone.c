@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:07:32 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/21 16:59:11 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:11:03 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ t_mzone	*create_zone(size_t size)
 	zone = (t_mzone*)zone_ptr;
 	zone->free = freelist_init(zone, size);
 	zone->next = NULL;
+	zone->prev = NULL;
+	zone->is_empty = 1;
+	t_mblock *block = GET_BLOCK(zone->free, -BLKSZ);
+	printf("%p; %p; %ld\n", zone->free, block, block->size);
 	return (zone);
 }
 
