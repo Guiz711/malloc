@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:08:38 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 14:55:19 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/28 12:01:44 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,21 @@ short	freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new)
 	if (old)
 	{
 		if (old->prev != NULL)
+		{
+			new->prev = old->prev->next;
 			old->prev->next = new;
+		}
 		else
 			zone->free = new;
 		if(old->next != NULL)
+		{
+			new->next = old->next;
 			old->next->prev = new;
+		}
 	}
 	else
 		zone->free = new;
+
 	return (SUCCESS);
 }
 

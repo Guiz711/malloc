@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 11:28:37 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 15:14:53 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/28 11:37:18 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,72 @@ bool	is_empty_zone(t_mzone *zone)
 	return false;
 }
 
+void	zonelist_remove(t_mzone *zone, t_zone_mask type)
+{
+	if (zone->prev != NULL)
+		zone->prev->next = zone->next;
+	else
+	{
+		if(type & TINY)
+			g_mctrl.tiny = zone->next;
+		else if(type & SMALL)
+			g_mctrl.small = zone->next;
+		else
+			g_mctrl.big = zone->next;
+	}
+	if (zone->next != NULL)
+		zone->next->prev = zone->prev;
+}
+
 void	delete_zone(t_mzone *zone, t_zone_mask type)
 {
+	size_t	size;
 
+	zonelist_remove(zone, type);
+	if(type & BIG)
+		size =  get_big_zone_size(zone);
+	else if(type & TINY)
+		size = PAGE_SIZE * TINY_PAGES_NB;
+	else if(type & SMALL)
+		size = PAGE_SIZE * SMALL_PAGES_NB;
+	munmap(zone, size);
 }
 
 void	delete_if_needed(t_mzone *zone, t_zone_mask type)
 {
-	// char	empty_nb;
+	char	*empty_nb;
 
-	// empty_nb = type & TINY ? g_mctrl.tiny : g_mctrl.small;
-	// if (type & BIG)
-	// 	munmap(zone, get_big_zone_size(zone));
-	// else if (is_empty_zone(zone))
-	// {
-	// 	if (empty_nb > 1)
-	// 		delete_zone()
-	// }
+	empty_nb = type & TINY ? &g_mctrl.empty_tiny : &g_mctrl.empty_small;
+	if (type & BIG)
+		delete_zone(zone, type);	
+	else if (is_empty_zone(zone))
+	{
+		if (*empty_nb > 1 || (zone->next == NULL && zone->prev == NULL))
+			delete_zone(zone, type);
+		(*empty_nb)++;
+	}
 }
 
-t_mzone	*zone_search(t_mzone *zone, size_t zone_size, void *ptr)
+t_mzone	*zone_search(t_zone_mask type, void *ptr)
 {
+	t_mzone	*zone;
+	size_t	zone_size;
+
+	if(type & TINY)
+	{
+		zone = g_mctrl.tiny;
+		zone_size = PAGE_SIZE * TINY_PAGES_NB;
+	}
+	else if(type & SMALL)
+	{
+		zone = g_mctrl.small;
+		zone_size = PAGE_SIZE * SMALL_PAGES_NB;
+	}
+	else
+	{
+		zone = g_mctrl.big;
+		zone_size = -1;
+	}
 	while (zone != NULL)
 	{
 		if(zone_size == -1)
@@ -62,21 +107,23 @@ void	ft_free(void *ptr)
 {
 	t_mblock	*block;
 	t_mzone		*zone;
+	t_zone_mask	type;
 
 	if(!ptr)
 		return;
 	block = GET_BLOCK(ptr, -BLKSZ);
 	zone = NULL;
 	if (block->size <= TINY_MAX_SIZE)
-		zone = zone_search(g_mctrl.tiny, PAGE_SIZE * TINY_PAGES_NB, ptr);
+		type = TINY;
 	else if (block->size <= SMALL_MAX_SIZE)
-		zone = zone_search(g_mctrl.small, PAGE_SIZE * SMALL_PAGES_NB, ptr);
+		type = SMALL;
 	else if (block->size > SMALL_MAX_SIZE)
-		zone = zone_search(g_mctrl.big, -1, ptr);
+		type = BIG;
+	zone = zone_search(type, ptr);
 	if(zone != NULL)
 	{
 		freelist_insert(zone, ptr);
 		freelist_defrag((t_mfree*)ptr);
-		// delete_if_needed(zone);
+		delete_if_needed(zone, type);
 	}
 }
