@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 11:28:37 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/28 11:37:18 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/28 16:11:59 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	zonelist_remove(t_mzone *zone, t_zone_mask type)
 void	delete_zone(t_mzone *zone, t_zone_mask type)
 {
 	size_t	size;
+	char	*empty_nb;
 
+	empty_nb = type & TINY ? &g_mctrl.empty_tiny : &g_mctrl.empty_small;
 	zonelist_remove(zone, type);
 	if(type & BIG)
 		size =  get_big_zone_size(zone);
@@ -55,6 +57,8 @@ void	delete_zone(t_mzone *zone, t_zone_mask type)
 	else if(type & SMALL)
 		size = PAGE_SIZE * SMALL_PAGES_NB;
 	munmap(zone, size);
+	if(!(type & BIG))
+		(*empty_nb)--;
 }
 
 void	delete_if_needed(t_mzone *zone, t_zone_mask type)
@@ -62,13 +66,15 @@ void	delete_if_needed(t_mzone *zone, t_zone_mask type)
 	char	*empty_nb;
 
 	empty_nb = type & TINY ? &g_mctrl.empty_tiny : &g_mctrl.empty_small;
+	printf("%d = %d\n", type, *empty_nb);
 	if (type & BIG)
 		delete_zone(zone, type);	
 	else if (is_empty_zone(zone))
 	{
-		if (*empty_nb > 1 || (zone->next == NULL && zone->prev == NULL))
-			delete_zone(zone, type);
+		zone->is_empty = 1;
 		(*empty_nb)++;
+		if (*empty_nb >= 1 || (zone->next == NULL && zone->prev == NULL))
+			delete_zone(zone, type);
 	}
 }
 

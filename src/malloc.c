@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:42:41 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 16:12:47 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/28 16:39:35 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,7 @@ void	*alloc_space(t_mzone **zonelst, t_zone_mask mask,
 	}
 	reg_space(zone, free_space, size, step);
 	if (zone->is_empty)
-	{
 		zone->is_empty = 0;
-		if (mask == TINY)
-			g_mctrl.empty_tiny++;
-		else if (mask == SMALL)
-			g_mctrl.empty_small++;
-	}
 	return ((void*)free_space);
 }
 
