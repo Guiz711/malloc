@@ -6,11 +6,17 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/19 14:03:15 by jgourdin          #+#    #+#              #
-#    Updated: 2018/11/23 16:26:03 by gmichaud         ###   ########.fr        #
+#    Updated: 2018/11/30 15:22:52 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = malloc
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
+
+NAME = libft_malloc_$(HOSTTYPE).so
+
+LINKNAME = libft_malloc.so
 
 INC_FLAGS = -I./includes -I./libft/includes
 
@@ -20,11 +26,11 @@ LIBS = -lft
 
 CC = clang
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = src
 
-SRC_NAME = main.c malloc.c free.c zone.c lst_handling.c free_list.c debug1.c \
-			debug2.c
+SRC_NAME = malloc.c free.c realloc.c zone.c lst_handling.c free_list.c \
+			debug1.c debug2.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
@@ -40,7 +46,8 @@ all: $(NAME)
 
 $(NAME): compilation_end
 	@make -C ./libft --no-print-directory
-	@$(CC) $(OBJ) -o $@ $(LIB_FLAGS) $(LIBS)
+	@$(CC) -shared -o $@ $(OBJ) $(LIB_FLAGS) $(LIBS)
+	ln -s $@ $(LINKNAME)
 	@echo "$(GREEN)[$(NAME)] Compilation success"
 
 compilation_end: $(OBJ)
@@ -58,6 +65,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(LINKNAME)
 	@make -C ./libft fclean --no-print-directory
 	@echo  "$(GREEN)[$(NAME)] executable file deleted"
 	@/bin/rm -f ./minilibx_macos/libmlx.a

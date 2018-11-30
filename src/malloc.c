@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:42:41 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/28 16:39:35 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/30 16:20:57 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*alloc_space(t_mzone **zonelst, t_zone_mask mask,
 	return ((void*)free_space);
 }
 
-void	*ft_malloc(size_t size)
+void	*malloc(size_t size)
 {
 	if (size <= TINY_MAX_SIZE)
 		return (alloc_space(&(g_mctrl.tiny), TINY, TINY_PAGES_NB, size));

@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:10:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 15:05:44 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/30 17:34:25 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	show_zones(t_mzone *zone, size_t zsize, char *type, t_mode_mask mode)
 	i = 0;
 	while (zone)
 	{
-		if (zsize == -1)
+		if (!ft_strcmp(type, "BIG"))
 			zsize = get_big_zone_size(zone);
 		print_zone(type, i++, zone);
 		if (mode != FREE)
@@ -59,7 +59,7 @@ void	show_alloc_mode(t_mode_mask mode, t_zone_mask zones_to_show)
 	if(zones_to_show & SMALL)
 		show_zones(g_mctrl.small, SMALL_PAGES_NB * PAGE_SIZE, "SMALL", mode);
 	if(zones_to_show & BIG)
-		show_zones(g_mctrl.big, -1, "BIG", mode);
+		show_zones(g_mctrl.big, 0, "BIG", mode);
 }
 
 void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show)

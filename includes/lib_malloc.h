@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 14:14:02 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/11/30 17:28:50 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
-# include "libft.h"
+# include "../libft/includes/libft.h"
 # include <limits.h>
 # include <stdbool.h>
 
@@ -28,9 +28,9 @@
 # define SUCCESS 1
 # define ERROR 0
 
-# define TINY_PAGES_NB 31
+# define TINY_PAGES_NB 32//31
 # define TINY_STEP 16
-# define TINY_MAX_SIZE 1088
+# define TINY_MAX_SIZE 1248//1088
 
 # define SMALL_PAGES_NB 560
 # define SMALL_STEP 368
@@ -93,8 +93,9 @@ typedef struct		s_mctrl
 
 t_mctrl g_mctrl;
 
-void	*ft_malloc(size_t size);
-void	ft_free(void *ptr);
+void	*malloc(size_t size);
+void	free(void *ptr);
+void	*realloc(void *ptr, size_t size);
 
 t_mfree	*find_free_space(t_mfree *freelist, size_t alloc_size);
 t_mfree	*freelist_init(t_mzone *zone, size_t zone_size);
@@ -103,6 +104,7 @@ short	freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new);
 void	freelist_defrag(t_mfree *link);
 void	freelist_insert(t_mzone *zone, void *ptr);
 
+size_t	select_step(t_zone_mask mask);
 size_t	get_big_zone_size(t_mzone *zone);
 size_t	big_page_nb(size_t size);
 t_mzone	*create_zone(size_t size);
@@ -117,5 +119,8 @@ void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show);
 void	dump_hexa(void *begin, void *end);
 void	print_alloc(void *begin, void *end, size_t size);
 void	print_zone(char *type, size_t i, void *ptr);
+t_mzone	*zone_search(t_zone_mask type, void *ptr);
+t_mzone	*zone_search2(void *ptr, t_zone_mask *type);
+bool	block_search(t_mzone *zone, t_mblock *block, t_zone_mask type);
 
 #endif
