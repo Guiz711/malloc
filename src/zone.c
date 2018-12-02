@@ -6,11 +6,20 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:07:32 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/30 13:58:55 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/02 19:04:51 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_malloc.h"
+
+size_t	select_step(t_zone_mask mask)
+{
+	if (mask == TINY)
+		return (TINY_STEP);
+	else if (mask == SMALL)
+		return (SMALL_STEP);
+	return (0);
+}
 
 size_t	get_big_zone_size(t_mzone *zone)
 {
@@ -27,7 +36,6 @@ size_t	big_page_nb(size_t size)
 
 	total_size = size + BLKSZ + ZONESZ;
 	page_nb = total_size / PAGE_SIZE + (total_size % PAGE_SIZE != 0);
-	// fprintf(stderr, "%ld + %ld + %ld / %ld + %ld = %ld\n", size, BLKSZ, ZONESZ, PAGE_SIZE, size % PAGE_SIZE != 0, page_nb);
 	return (page_nb);
 }
 

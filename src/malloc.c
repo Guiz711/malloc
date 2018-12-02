@@ -6,13 +6,14 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:42:41 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/30 16:20:57 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/02 18:48:57 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_malloc.h"
 
-void	reg_space(t_mzone *zone, t_mfree *free_space, size_t size, size_t step)
+static void	reg_space(t_mzone *zone, t_mfree *free_space,
+	size_t size, size_t step)
 {
 	t_mblock	*block;
 	t_mblock	*new_block;
@@ -37,16 +38,7 @@ void	reg_space(t_mzone *zone, t_mfree *free_space, size_t size, size_t step)
 		freelist_remove(zone, free_space);
 }
 
-size_t	select_step(t_zone_mask mask)
-{
-	if (mask == TINY)
-		return (TINY_STEP);
-	else if (mask == SMALL)
-		return (SMALL_STEP);
-	return (0);
-}
-
-void	*alloc_space(t_mzone **zonelst, t_zone_mask mask,
+static void	*alloc_space(t_mzone **zonelst, t_zone_mask mask,
 	size_t p_nb, size_t size)
 {
 	t_mzone *zone;
@@ -72,7 +64,7 @@ void	*alloc_space(t_mzone **zonelst, t_zone_mask mask,
 	return ((void*)free_space);
 }
 
-void	*malloc(size_t size)
+void		*malloc(size_t size)
 {
 	if (size <= TINY_MAX_SIZE)
 		return (alloc_space(&(g_mctrl.tiny), TINY, TINY_PAGES_NB, size));

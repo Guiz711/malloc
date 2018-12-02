@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_list.c                                        :+:      :+:    :+:   */
+/*   free_list1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:08:38 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/28 12:01:44 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/02 18:48:31 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,4 @@ t_mfree	*freelist_init(t_mzone *zone, size_t zone_size)
 	free_space->next = NULL;
 	free_space->prev = NULL;
 	return (free_space);
-}
-
-t_mfree	*find_free_space(t_mfree *freelist, size_t alloc_size)
-{
-	t_mblock	*block;
-
-	block = NULL;
-	while (freelist != NULL)
-	{
-		block = GET_BLOCK(freelist, -BLKSZ);
-		if (block->size >= alloc_size)
-			return (freelist);
-		freelist = freelist->next;
-	}
-	return (NULL);
 }

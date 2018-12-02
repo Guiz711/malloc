@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/30 17:28:50 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/02 18:39:53 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	dump_hexa(void *begin, void *end);
 void	print_alloc(void *begin, void *end, size_t size);
 void	print_zone(char *type, size_t i, void *ptr);
 t_mzone	*zone_search(t_zone_mask type, void *ptr);
-t_mzone	*zone_search2(void *ptr, t_zone_mask *type);
+t_mzone	*zone_search(void *ptr, t_zone_mask *type);
 bool	block_search(t_mzone *zone, t_mblock *block, t_zone_mask type);
 
 #endif

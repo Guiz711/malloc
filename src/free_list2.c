@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_handling.c                                     :+:      :+:    :+:   */
+/*   free_list2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/21 10:05:56 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/24 15:06:53 by gmichaud         ###   ########.fr       */
+/*   Created: 2018/12/02 18:35:25 by gmichaud          #+#    #+#             */
+/*   Updated: 2018/12/02 18:36:02 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib_malloc.h"
 
-short	zonelist_append(t_mzone **alst, t_mzone *new)
+t_mfree	*find_free_space(t_mfree *freelist, size_t alloc_size)
 {
-	t_mzone	*tmp;
+	t_mblock	*block;
 
-	if (!alst)
-		return (ERROR);
-	tmp = *alst;
-	if (tmp)
+	block = NULL;
+	while (freelist != NULL)
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
+		block = GET_BLOCK(freelist, -BLKSZ);
+		if (block->size >= alloc_size)
+			return (freelist);
+		freelist = freelist->next;
 	}
-	else
-		*alst = new;
-	return (SUCCESS);
+	return (NULL);
 }

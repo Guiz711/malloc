@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 16:23:20 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 17:54:53 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/02 19:07:11 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_alloc(void *begin, void *end, size_t size)
 
 void	dump_hexa(void *begin, void *end)
 {
-	char 	*hexa;
+	char	*hexa;
 	size_t	i;
 
 	hexa = NULL;
@@ -67,14 +67,14 @@ void	dump_hexa(void *begin, void *end)
 	{
 		hexa = (char*)begin;
 		i = 0;
-		while(i < BLKSZ)
+		while (i < BLKSZ)
 		{
 			ft_puthexa_formated((unsigned char)hexa[i], 2, false);
 			ft_putchar(' ');
 			++i;
 		}
 		i = 0;
-		while(i < BLKSZ)
+		while (i < BLKSZ)
 		{
 			ft_isprint(hexa[i]) ? ft_putchar(hexa[i]) : ft_putchar('.');
 			++i;
