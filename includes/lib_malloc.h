@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 18:39:53 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:14:51 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # define SUCCESS 1
 # define ERROR 0
 
-# define TINY_PAGES_NB 32//31
+# define TINY_PAGES_NB 32
 # define TINY_STEP 16
-# define TINY_MAX_SIZE 1248//1088
+# define TINY_MAX_SIZE 1248
 
 # define SMALL_PAGES_NB 560
 # define SMALL_STEP 368
@@ -46,21 +46,21 @@
 # define BLKSZ sizeof(t_mblock)
 # define ZONESZ sizeof(t_mzone)
 
-typedef enum	e_mode_mask
+typedef enum		e_mode_mask
 {
 	FREE = 1 << 0,
 	ALLOCS = 1 << 1,
 	DUMP = 1 << 2,
 	MODE_ALL = FREE | ALLOCS | DUMP
-}				t_mode_mask;
+}					t_mode_mask;
 
-typedef enum	e_zone_mask
+typedef enum		e_zone_mask
 {
 	TINY = 1 << 0,
 	SMALL = 1 << 1,
 	BIG = 1 << 2,
 	ZONE_ALL = TINY | SMALL | BIG
-}				t_zone_mask;
+}					t_zone_mask;
 
 typedef struct		s_mblock
 {
@@ -91,36 +91,37 @@ typedef struct		s_mctrl
 	char			empty_small;
 }					t_mctrl;
 
-t_mctrl g_mctrl;
+t_mctrl				g_mctrl;
 
-void	*malloc(size_t size);
-void	free(void *ptr);
-void	*realloc(void *ptr, size_t size);
+void				*malloc(size_t size);
+void				free(void *ptr);
+void				*realloc(void *ptr, size_t size);
 
-t_mfree	*find_free_space(t_mfree *freelist, size_t alloc_size);
-t_mfree	*freelist_init(t_mzone *zone, size_t zone_size);
-void	freelist_remove(t_mzone *zone, t_mfree *del);
-short	freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new);
-void	freelist_defrag(t_mfree *link);
-void	freelist_insert(t_mzone *zone, void *ptr);
+t_mfree				*find_free_space(t_mfree *freelist, size_t alloc_size);
+t_mfree				*freelist_init(t_mzone *zone, size_t zone_size);
+void				freelist_remove(t_mzone *zone, t_mfree *del);
+short				freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new);
+void				freelist_defrag(t_mfree *link);
+void				freelist_insert(t_mzone *zone, void *ptr);
 
-size_t	select_step(t_zone_mask mask);
-size_t	get_big_zone_size(t_mzone *zone);
-size_t	big_page_nb(size_t size);
-t_mzone	*create_zone(size_t size);
-t_mzone	*init_zone(t_mzone **zonelst, size_t pages_nb);
+size_t				select_step(t_zone_mask mask);
+size_t				get_big_zone_size(t_mzone *zone);
+size_t				big_page_nb(size_t size);
+t_mzone				*create_zone(size_t size);
+t_mzone				*init_zone(t_mzone **zonelst, size_t pages_nb);
 
-short	zonelist_append(t_mzone **alst, t_mzone *new);
+short				zonelist_append(t_mzone **alst, t_mzone *new);
 
-void	print_free_list(t_mfree *list);
+void				print_free_list(t_mfree *list);
 
-void	show_alloc_mem();
-void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show);
-void	dump_hexa(void *begin, void *end);
-void	print_alloc(void *begin, void *end, size_t size);
-void	print_zone(char *type, size_t i, void *ptr);
-t_mzone	*zone_search(t_zone_mask type, void *ptr);
-t_mzone	*zone_search(void *ptr, t_zone_mask *type);
-bool	block_search(t_mzone *zone, t_mblock *block, t_zone_mask type);
+void				show_alloc_mem();
+void				show_alloc_mem_ex(t_mode_mask mode,
+	t_zone_mask zones_to_show);
+void				dump_hexa(void *begin, void *end);
+void				print_alloc(void *begin, void *end, size_t size);
+void				print_zone(char *type, size_t i, void *ptr);
+t_mzone				*zone_search(void *ptr, t_zone_mask *type);
+bool				block_search(t_mzone *zone, t_mblock *block,
+	t_zone_mask type);
 
 #endif

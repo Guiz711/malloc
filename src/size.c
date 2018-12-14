@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 18:50:01 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 18:56:40 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:01:35 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_zone_mask	find_type(size_t size)
 	return (type);
 }
 
-bool        is_same_type(t_zone_mask type, size_t size)
+bool		is_same_type(t_zone_mask type, size_t size)
 {
 	t_zone_mask	n_type;
-	
+
 	n_type = find_type(size);
 	if (n_type == type)
 		return (true);

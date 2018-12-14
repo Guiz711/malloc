@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 16:13:49 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 16:19:16 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:17:06 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_puthexa(unsigned long n)
 	}
 }
 
-void ft_puthexa_formated(unsigned long n, size_t size, bool prefix)
+void	ft_puthexa_formated(unsigned long n, size_t size, bool prefix)
 {
 	size_t			len;
 	unsigned long	tmp;
@@ -35,7 +35,7 @@ void ft_puthexa_formated(unsigned long n, size_t size, bool prefix)
 		len++;
 		tmp /= 16;
 	}
-	if(prefix)
+	if (prefix)
 		ft_putstr("0x");
 	while (size > len)
 	{

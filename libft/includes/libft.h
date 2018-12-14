@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/02 13:58:43 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 17:32:43 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:15:57 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void				ft_putnbrlu_aligned(unsigned long n, size_t columns);
 void				ft_putnbrll(long long n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_puthexa(unsigned long n);
-void 				ft_puthexa_formated(unsigned long n,
+void				ft_puthexa_formated(unsigned long n,
 	size_t size, bool prefix);
 int					ft_atoi(char const *s);
 void				*ft_memalloc(size_t size);

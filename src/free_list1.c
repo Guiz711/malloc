@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:08:38 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 18:48:31 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:00:44 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ short	freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new)
 		}
 		else
 			zone->free = new;
-		if(old->next != NULL)
+		if (old->next != NULL)
 		{
 			new->next = old->next;
 			old->next->prev = new;
@@ -31,7 +31,6 @@ short	freelist_replace(t_mzone *zone, t_mfree *old, t_mfree *new)
 	}
 	else
 		zone->free = new;
-
 	return (SUCCESS);
 }
 
@@ -49,7 +48,7 @@ void	freelist_defrag(t_mfree *link)
 {
 	t_mblock	*block;
 	t_mblock	*next_block;
-	t_mblock 	*prev_block;
+	t_mblock	*prev_block;
 
 	block = GET_BLOCK(link, -BLKSZ);
 	if (link->next && NEXT_ALLOC(block, block->size) == (void*)link->next)
@@ -61,7 +60,7 @@ void	freelist_defrag(t_mfree *link)
 	if (link->prev)
 	{
 		prev_block = GET_BLOCK(link->prev, -BLKSZ);
-	 	if (NEXT_ALLOC(prev_block, prev_block->size) == (void*)link)
+		if (NEXT_ALLOC(prev_block, prev_block->size) == (void*)link)
 		{
 			prev_block->size += BLKSZ + block->size;
 			link->prev->next = link->next;

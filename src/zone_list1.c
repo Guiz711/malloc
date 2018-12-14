@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 18:37:46 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 18:43:58 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:02:37 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	zonelist_remove(t_mzone *zone, t_zone_mask type)
 		zone->prev->next = zone->next;
 	else
 	{
-		if(type & TINY)
+		if (type & TINY)
 			g_mctrl.tiny = zone->next;
-		else if(type & SMALL)
+		else if (type & SMALL)
 			g_mctrl.small = zone->next;
 		else
 			g_mctrl.big = zone->next;
@@ -36,14 +36,14 @@ void	delete_zone(t_mzone *zone, t_zone_mask type)
 
 	empty_nb = type & TINY ? &g_mctrl.empty_tiny : &g_mctrl.empty_small;
 	zonelist_remove(zone, type);
-	if(type & BIG)
-		size =  get_big_zone_size(zone);
-	else if(type & TINY)
+	if (type & BIG)
+		size = get_big_zone_size(zone);
+	else if (type & TINY)
 		size = PAGE_SIZE * TINY_PAGES_NB;
 	else
 		size = PAGE_SIZE * SMALL_PAGES_NB;
 	munmap(zone, size);
-	if(!(type & BIG))
+	if (!(type & BIG))
 		(*empty_nb)--;
 }
 

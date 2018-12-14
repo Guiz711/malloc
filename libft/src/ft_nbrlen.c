@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 17:01:08 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 17:46:13 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:16:26 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_nbrlen(int n)
 	size_t	len;
 
 	len = 0;
-	if(n == 0)
+	if (n == 0)
 		return (1);
 	while (n != 0)
 	{

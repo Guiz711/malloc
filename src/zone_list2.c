@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:05:56 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 18:43:57 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:06:45 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ bool	is_empty_zone(t_mzone *zone)
 
 	block = GET_BLOCK(zone, ZONESZ);
 	tmp_free = zone->free;
-	while(tmp_free->next)
+	while (tmp_free->next)
 		tmp_free = tmp_free->next;
-	if(block == GET_BLOCK(tmp_free, -BLKSZ))
-		return true;
-	return false;
+	if (block == GET_BLOCK(tmp_free, -BLKSZ))
+		return (true);
+	return (false);
 }
 
-t_mzone *is_contained_in_zone(t_mzone *zone, size_t zone_size, void *ptr)
+t_mzone	*is_contained_in_zone(t_mzone *zone, size_t zone_size, void *ptr)
 {
 	while (zone != NULL)
 	{
-		if(!zone_size)
+		if (!zone_size)
 			zone_size = get_big_zone_size(zone);
-		if(ptr > (void*)zone && ptr <= (void*)zone + zone_size)
+		if (ptr > (void*)zone && ptr <= (void*)zone + zone_size)
 			return (zone);
 		zone = zone->next;
 	}

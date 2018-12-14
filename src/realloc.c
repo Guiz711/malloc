@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 16:19:11 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/02 19:03:10 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:05:28 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void		*reduce_block(t_mblock *block, t_mzone *zone,
 {
 	t_mblock	*new_block;
 	t_mfree		*new_free;
-	size_t 		step;
-	
+	size_t		step;
+
 	step = type != BIG ? select_step(type) : size;
 	if (block->size - size >= BLKSZ * 2)
 	{
@@ -38,19 +38,19 @@ static void		*alloc_and_copy(t_mblock *old_block, size_t size)
 {
 	char	*new_ptr;
 	char	*old_ptr;
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	if (!(new_ptr = (char*)malloc(size)))
 		return (NULL);
 	old_ptr = (char*)DECAL(old_block, BLKSZ);
-	while(i < old_block->size)
+	while (i < old_block->size)
 	{
 		new_ptr[i] = old_ptr[i];
 		i++;
 	}
 	free(old_ptr);
-	return((void *)new_ptr);
+	return ((void *)new_ptr);
 }
 
 static bool		verify_next_block(t_mblock *block, t_mzone *zone, size_t size)
@@ -72,13 +72,13 @@ static bool		verify_next_block(t_mblock *block, t_mzone *zone, size_t size)
 	return (false);
 }
 
-void        *realloc(void *ptr, size_t size)
+void			*realloc(void *ptr, size_t size)
 {
 	t_mblock	*block;
 	t_mzone		*zone;
 	t_zone_mask	type;
 
-	if(!ptr)
+	if (!ptr)
 		return (malloc(size));
 	if (size <= 0)
 	{
@@ -86,7 +86,7 @@ void        *realloc(void *ptr, size_t size)
 		return (NULL);
 	}
 	block = GET_BLOCK(ptr, -BLKSZ);
-	if(!(zone = zone_search(ptr, &type)) || !block_search(zone, block, type))
+	if (!(zone = zone_search(ptr, &type)) || !block_search(zone, block, type))
 		return (NULL);
 	if (zone->free && (size < block->size || is_same_type(type, size)))
 	{
@@ -97,5 +97,5 @@ void        *realloc(void *ptr, size_t size)
 	}
 	else if (size > block->size)
 		ptr = alloc_and_copy(block, size);
-	return(ptr);
+	return (ptr);
 }

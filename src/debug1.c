@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 10:10:09 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/30 17:34:25 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:58:52 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,29 @@ void	show_zones(t_mzone *zone, size_t zsize, char *type, t_mode_mask mode)
 
 void	show_alloc_mode(t_mode_mask mode, t_zone_mask zones_to_show)
 {
-	if(zones_to_show & TINY)
+	if (zones_to_show & TINY)
 		show_zones(g_mctrl.tiny, TINY_PAGES_NB * PAGE_SIZE, "TINY", mode);
-	if(zones_to_show & SMALL)
+	if (zones_to_show & SMALL)
 		show_zones(g_mctrl.small, SMALL_PAGES_NB * PAGE_SIZE, "SMALL", mode);
-	if(zones_to_show & BIG)
+	if (zones_to_show & BIG)
 		show_zones(g_mctrl.big, 0, "BIG", mode);
 }
 
 void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show)
 {
-	if(mode & ALLOCS)
+	if (mode & ALLOCS)
 	{
 		ft_putstr("\n----------------------\n");
 		ft_putstr("# Memory Allocations #\n\n");
 		show_alloc_mode(mode & ALLOCS, zones_to_show);
 	}
-	if(mode & FREE)
+	if (mode & FREE)
 	{
 		ft_putstr("\n----------------------\n");
 		ft_putstr("#     Free Lists     #\n\n");
 		show_alloc_mode(mode & FREE, zones_to_show);
 	}
-	if(mode & DUMP)
+	if (mode & DUMP)
 	{
 		ft_putstr("\n----------------------\n");
 		ft_putstr("#      Hex Dump      #\n\n");
@@ -84,7 +84,7 @@ void	show_alloc_mem_ex(t_mode_mask mode, t_zone_mask zones_to_show)
 	}
 }
 
-void	show_alloc_mem()
+void	show_alloc_mem(void)
 {
 	show_zones(g_mctrl.tiny, TINY_PAGES_NB * PAGE_SIZE, "TINY", ALLOCS);
 	show_zones(g_mctrl.small, SMALL_PAGES_NB * PAGE_SIZE, "SMALL", ALLOCS);

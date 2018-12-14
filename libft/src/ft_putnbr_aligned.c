@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 16:55:05 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/11/23 17:32:48 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/08 17:17:33 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_putnbrlu_aligned(unsigned long n, size_t columns)
 {
 	columns -= ft_nbrlen(n);
 	ft_putnbrlu(n);
-	while(columns > 0)
+	while (columns > 0)
 	{
 		ft_putchar(' ');
 		--columns;
