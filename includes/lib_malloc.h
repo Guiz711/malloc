@@ -6,7 +6,7 @@
 /*   By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 11:25:22 by gmichaud          #+#    #+#             */
-/*   Updated: 2018/12/08 17:14:51 by gmichaud         ###   ########.fr       */
+/*   Updated: 2018/12/14 18:30:33 by gmichaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ size_t				get_big_zone_size(t_mzone *zone);
 size_t				big_page_nb(size_t size);
 t_mzone				*create_zone(size_t size);
 t_mzone				*init_zone(t_mzone **zonelst, size_t pages_nb);
+void				delete_zone(t_mzone *zone, t_zone_mask type);
+bool				is_empty_zone(t_mzone *zone);
+bool				is_same_type(t_zone_mask type, size_t size);
 
 short				zonelist_append(t_mzone **alst, t_mzone *new);
 

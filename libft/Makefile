@@ -6,13 +6,17 @@
 #    By: gmichaud <gmichaud@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 15:56:40 by gmichaud          #+#    #+#              #
-#    Updated: 2018/11/23 17:43:41 by gmichaud         ###   ########.fr        #
+#    Updated: 2018/12/14 18:31:35 by gmichaud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 INC_FLAGS = -I./includes
+
+INC_NAME = libft.h
+
+INC_PATH = ./includes
 
 SRC_PATH = src
 
@@ -43,19 +47,18 @@ OBJ_NAME = $(SRC:.c=.o)
 
 OBJ = $(subst $(SRC_PATH),$(OBJ_PATH),$(OBJ_NAME))
 
+INC = $(addprefix $(INC_PATH)/,$(INC_NAME))
+
 GREEN = \033[32m
 
 all: $(NAME)
 
-$(NAME): compilation_end
+$(NAME): $(OBJ)
 	@ar rc $@ $(OBJ)
 	@ranlib $@
 	@echo "$(GREEN)[$(NAME)] Compilation success"
 
-compilation_end: $(OBJ)
-	@echo "$(GREEN)[$(NAME)] .o created"
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INC)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(INC_FLAGS) -o $@ -c $<
 
